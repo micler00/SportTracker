@@ -1,0 +1,69 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="sportTrackerApp.workout.home.title">Workouts</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-workout" [routerLink]="['/workout/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="sportTrackerApp.workout.home.createLabel">
+            Create a new Workout
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="workouts?.length === 0">
+        <span jhiTranslate="sportTrackerApp.workout.home.notFound">No workouts found</span>
+    </div>
+    <div class="table-responsive" *ngIf="workouts?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+            <th scope="col" ><span jhiTranslate="sportTrackerApp.workout.date">Date</span></th>
+            <th scope="col" ><span jhiTranslate="sportTrackerApp.workout.duration">Duration</span></th>
+            <th scope="col" ><span jhiTranslate="sportTrackerApp.workout.patient">Patient</span></th>
+            <th scope="col" ><span jhiTranslate="sportTrackerApp.workout.activity">Activity</span></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let workout of workouts ;trackBy: trackId">
+                <td><a [routerLink]="['/workout', workout.id, 'view' ]">{{workout.id}}</a></td>
+                <td>{{workout.date | date:'mediumDate'}}</td>
+                <td>{{workout.duration}}</td>
+                <td>
+                    <div *ngIf="workout.patient">
+                        <a [routerLink]="['/patient', workout.patient?.id, 'view' ]" >{{workout.patient?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="workout.activity">
+                        <a [routerLink]="['/activity', workout.activity?.id, 'view' ]" >{{workout.activity?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/workout', workout.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/workout', workout.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(workout)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

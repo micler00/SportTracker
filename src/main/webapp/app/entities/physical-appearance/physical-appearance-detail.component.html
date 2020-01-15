@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="physicalAppearance">
+            <h2><span jhiTranslate="sportTrackerApp.physicalAppearance.detail.title">Physical Appearance</span> {{physicalAppearance.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="sportTrackerApp.physicalAppearance.weight">Weight</span></dt>
+                <dd>
+                    <span>{{physicalAppearance.weight}}</span>
+                </dd>
+                <dt><span jhiTranslate="sportTrackerApp.physicalAppearance.height">Height</span></dt>
+                <dd>
+                    <span>{{physicalAppearance.height}}</span>
+                </dd>
+                <dt><span jhiTranslate="sportTrackerApp.physicalAppearance.patient">Patient</span></dt>
+                <dd>
+                    <div *ngIf="physicalAppearance.patient">
+                        <a [routerLink]="['/patient', physicalAppearance.patient?.id, 'view']">{{physicalAppearance.patient?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/physical-appearance', physicalAppearance.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

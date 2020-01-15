@@ -1,0 +1,28 @@
+{
+  "sportTrackerApp": {
+    "patient": {
+      "home": {
+        "title": "Patients",
+        "createLabel": "Patient erstellen",
+        "createOrEditLabel": "Patient erstellen oder bearbeiten",
+        "notFound": "No Patients found"
+      },
+      "created": "Patient erstellt mit ID {{ param }}",
+      "updated": "Patient aktualisiert mit ID {{ param }}",
+      "deleted": "Patient gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Patient {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Patient"
+      },
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "gender": "Gender",
+      "dateOfBirth": "Date Of Birth",
+      "eMail": "E Mail",
+      "workout": "Workout",
+      "physicalAppearance": "Physical Appearance"
+    }
+  }
+}

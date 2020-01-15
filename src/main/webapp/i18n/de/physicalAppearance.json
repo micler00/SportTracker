@@ -1,0 +1,24 @@
+{
+  "sportTrackerApp": {
+    "physicalAppearance": {
+      "home": {
+        "title": "Physical Appearances",
+        "createLabel": "Physical Appearance erstellen",
+        "createOrEditLabel": "Physical Appearance erstellen oder bearbeiten",
+        "notFound": "No Physical Appearances found"
+      },
+      "created": "Physical Appearance erstellt mit ID {{ param }}",
+      "updated": "Physical Appearance aktualisiert mit ID {{ param }}",
+      "deleted": "Physical Appearance gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Physical Appearance {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Physical Appearance"
+      },
+      "weight": "Weight",
+      "height": "Height",
+      "patient": "Patient"
+    }
+  }
+}

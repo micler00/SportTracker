@@ -1,0 +1,45 @@
+application {
+  config {
+    baseName sportTracker
+    applicationType monolith
+    buildTool maven
+    clientFramework angularX
+    clientPackageManager npm
+    databaseType sql
+    devDatabaseType h2Disk
+    enableSwaggerCodegen true
+    languages [en,de]
+    packageName at.fhv.sporttracker
+    serverPort 8080    
+  }
+  entities *
+}
+
+entity Patient {
+	firstName String,
+    lastName String,
+    gender String,
+    dateOfBirth LocalDate,
+    eMail String
+}
+
+entity Activity {
+	name String required,
+    calPerHour Double required
+}
+
+entity Workout {
+	date LocalDate required,
+    duration Duration required
+}
+
+entity PhysicalAppearance {
+	weight Double required,
+    height Double
+}
+
+relationship OneToMany {
+	Patient to Workout,
+    Activity to Workout,
+    Patient to PhysicalAppearance
+}

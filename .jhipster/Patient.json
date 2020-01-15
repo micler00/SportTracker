@@ -1,0 +1,51 @@
+{
+    "name": "Patient",
+    "fields": [
+        {
+            "fieldName": "firstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "gender",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dateOfBirth",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "eMail",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "workout",
+            "otherEntityRelationshipName": "patient",
+            "relationshipName": "workout"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "physicalAppearance",
+            "otherEntityRelationshipName": "patient",
+            "relationshipName": "physicalAppearance"
+        }
+    ],
+    "changelogDate": "20200115140836",
+    "entityTableName": "patient",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": [
+        "sportTracker"
+    ]
+}
