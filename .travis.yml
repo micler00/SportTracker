@@ -18,7 +18,7 @@ env:
     - JHI_DISABLE_WEBPACK_LOGS=true
     - NG_CLI_ANALYTICS="false"
     - MAVEN_USER_HOME=$HOME/.m2/repository/
-    - secure: kkoqROcCGyQFoguXgny7C1eFk+v+y0mFU0w2sQj1Rcta8IKBsrItYubbw3VFexFri1pVyMkju73ZlqamqoycQMS0GqM1F3T3ux4wu0Sb/UXCSyU84apGh8STato2VnvMGcL8KL8qXafeALHDbbG2LS+Vknmp3wy5jxrp67vo9vZNyWN7xQ+4+wsgcIjI8GGWedEXQ2jVi/Or+FAB4a2AUPQkSXmiAVt37+VtbBt0gw6VMlvygYAq14glN8vrx+HIT7pGE6NA8fhkfdm2jIAysjbEPVW4LKFaHYbiFh/WQychFxfzaB2Az+s/Qh8cBaOZMo1O+kwFy1heXsPENxB1eVZtPHXtkd+SZK6mzT2WP2+TyuUFqSW/LhZfq66FjDMJahOt+eC6PhLHNrJNOPjhBsFn6Ba2CfypebZCoRmmosO6m7myMjwBCPTDadYGMjWAXhJVDxeYMLcTfizMUtnQMMnVngx3KKCVTmiotBzOLzLlD6NXjqq5rn6PQTjTRbtWLf2QUVZKA3ws/9xlHwHkzP8xsk+zQclomC7ZWku8A6q5BpHolu0TdAknGGoUUOF8mQVW6jqs6eHCqlI2SeQarCpzx9/7MGiSAvTzNVNccjS9uBJUqCLM27U0GUuE97nYISgdMoMjES+qZPzcRRV7AW06hSDnLEHX2eJAYGAtORQ=
+    - secure: gxiucAH6vmORyUkaOrk/EzoBgEnSHp2h+9+4pKCFMk5fZQyFtRYmVsBkWBCNhNDImQeEGLD6nJTNj2lB1aoS9bj76Umz5sEo9XF4DTIGklpcJVI5tvs+Mv9K0cSCcxNJOvUriMvN3JnGS2epT8pUxBVtpwo9H+mZtwSzYKpRJa9YmfyUbdQuqgpnxxSN+bsgG2Pr0WrvW992TOY3JsGEiTfRwk8UnADYQt6zzMLIKLoFJGiyDxlpvwdc9PIhjRaBhlQeME67s6cTOaEdvFqBx27DMyH8u/tc/jOzD1wTi/xHKUDUXRPR8993LNtE5FotFuNz5EfVOAaMr86y1ceOu1Gd5S48tEsCdze4yRC3ZYHOEq0UAZWuBQEpHj61QqxX9I9ysey5UJvcGlGFbdGqaK92mtXxkj1EcFbnkMlafkAWiZoyYdnhvNs9yMeuA51CZKMwJkJRpNART4Db8eR+JDfLSVcSy/CRT8n4L9FpWGbgya79bYwGy2kShlM2rs3vhzMjCDpZKOm96TAelnTYSqCyQdvslwhemTflaIiS529q6wBpF41EfTTiBqVf40vO8eVNmDLX4YzoETsKPndVwtI2AfB7pdBlPaAXulJRxiAeNd5R733zQgTd8+g/9O4nflEQVCmEXpIyq3KV1Q1job5XYBz24JA7QEjkb7LTGUk=
 before_install:
   - |
     if [[ $JHI_JDK = '8' ]]; then
@@ -41,9 +41,25 @@ before_install:
 install:
   - npm install
 script:
+  - chmod +x mvnw
+  - './mvnw -ntp checkstyle:check'
+  - './mvnw -ntp clean verify'
+  - "./mvnw -ntp com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run
+    test' -Dmaven.repo.local=$MAVEN_USER_HOME"
+  - if [ $TRAVIS_PULL_REQUEST == "false" ]; then ./mvnw -ntp org.jacoco:jacoco-maven-plugin:prepare-agent
+    initialize sonar:sonar -Dsonar.organization=lfricker -Dsonar.host.url=https://sonarcloud.io
+    -Dsonar.login=$SONAR_TOKEN; fi
+  - './mvnw -ntp verify -Pprod -DskipTests'
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 notifications:
   webhooks:
-    on_success: always
+    on_success: change
     on_failure: always
     on_start: false
+
+addons:
+  sonarcloud:
+    organization: 'lfricker'
+    token:
+      secure: gxiucAH6vmORyUkaOrk/EzoBgEnSHp2h+9+4pKCFMk5fZQyFtRYmVsBkWBCNhNDImQeEGLD6nJTNj2lB1aoS9bj76Umz5sEo9XF4DTIGklpcJVI5tvs+Mv9K0cSCcxNJOvUriMvN3JnGS2epT8pUxBVtpwo9H+mZtwSzYKpRJa9YmfyUbdQuqgpnxxSN+bsgG2Pr0WrvW992TOY3JsGEiTfRwk8UnADYQt6zzMLIKLoFJGiyDxlpvwdc9PIhjRaBhlQeME67s6cTOaEdvFqBx27DMyH8u/tc/jOzD1wTi/xHKUDUXRPR8993LNtE5FotFuNz5EfVOAaMr86y1ceOu1Gd5S48tEsCdze4yRC3ZYHOEq0UAZWuBQEpHj61QqxX9I9ysey5UJvcGlGFbdGqaK92mtXxkj1EcFbnkMlafkAWiZoyYdnhvNs9yMeuA51CZKMwJkJRpNART4Db8eR+JDfLSVcSy/CRT8n4L9FpWGbgya79bYwGy2kShlM2rs3vhzMjCDpZKOm96TAelnTYSqCyQdvslwhemTflaIiS529q6wBpF41EfTTiBqVf40vO8eVNmDLX4YzoETsKPndVwtI2AfB7pdBlPaAXulJRxiAeNd5R733zQgTd8+g/9O4nflEQVCmEXpIyq3KV1Q1job5XYBz24JA7QEjkb7LTGUk=
+  # encrypted value of your token
