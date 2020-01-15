@@ -40,7 +40,13 @@ before_install:
   - npm -v
 install:
   - npm install
+addons:
+  sonarcloud:
+    organization: 'lfricker'
+    token:
+      secure: 'nBmX6TeQhNLmqoIWti9he2WLOHSTjtAbeHaIpu175/yK74EouuyKVtvJkYtvdTVkRqpq3Ctnd/8lVNysZDQsRcV510BEJ8Z9aR0gQGQZsIvVsOTpkkAznKBckw5ujgqen8bpIe6U2EwcYrSDIN6kpMS1L46iUkDeTxDow1AVSKJ0h+r8EqMA2qDR/8lU3WFOAaqGuTtfYat6zxYKxjsLLoNU+4A7zHIh7Xkx8uE2kMOZrVi+vC61It2Q0brBDhvMTAJ9w/D9ntvt4A43I60oOr9iMt1c2hZ/GsSmoQMr5fCVmA+CvrpGmvfYDTzrvDIZFftAhuD96BT2ZdPnM3xAPkfwQeQwuZdaWXe4nhst0Z1OsBMQYMUpDpQp5m4xdiUoprcSToS6yrSpSRDuFk9OBrP6BBfwDtjj92+yIXnX0eBREMXPTaSeW9iwTjl/speumHgwcrSROfZNwJlWzSwTTPzeMmO8KqObmESRLrF3T6Cc2816fhlYxjXnpWOhKCqevP6zgDRNStwi2BuAtebbL493gTnbBcibYp08Or+FAqjxOixbtyB6pllp5CHrsUTVPhIDVirm7c1bQo05+scMlsUmu/G7+b5vlmtIN7FVDk3gfy9db5jGV8lOkQVZ9pcEEWSbUW6910UrjAaqGQZfDq+l3px9bpoIRHXmUwrrd0M='
 script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
   - chmod +x mvnw
   - './mvnw -ntp checkstyle:check'
   - './mvnw -ntp clean verify'
@@ -50,15 +56,8 @@ script:
     initialize sonar:sonar -Dsonar.organization=lfricker -Dsonar.host.url=https://sonarcloud.io
     -Dsonar.login=$SONAR_TOKEN; fi
   - './mvnw -ntp verify -Pprod -DskipTests'
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 notifications:
   webhooks:
     on_success: change
     on_failure: always
     on_start: false
-
-addons:
-  sonarcloud:
-    organization: 'lfricker'
-    token:
-      secure: 'nBmX6TeQhNLmqoIWti9he2WLOHSTjtAbeHaIpu175/yK74EouuyKVtvJkYtvdTVkRqpq3Ctnd/8lVNysZDQsRcV510BEJ8Z9aR0gQGQZsIvVsOTpkkAznKBckw5ujgqen8bpIe6U2EwcYrSDIN6kpMS1L46iUkDeTxDow1AVSKJ0h+r8EqMA2qDR/8lU3WFOAaqGuTtfYat6zxYKxjsLLoNU+4A7zHIh7Xkx8uE2kMOZrVi+vC61It2Q0brBDhvMTAJ9w/D9ntvt4A43I60oOr9iMt1c2hZ/GsSmoQMr5fCVmA+CvrpGmvfYDTzrvDIZFftAhuD96BT2ZdPnM3xAPkfwQeQwuZdaWXe4nhst0Z1OsBMQYMUpDpQp5m4xdiUoprcSToS6yrSpSRDuFk9OBrP6BBfwDtjj92+yIXnX0eBREMXPTaSeW9iwTjl/speumHgwcrSROfZNwJlWzSwTTPzeMmO8KqObmESRLrF3T6Cc2816fhlYxjXnpWOhKCqevP6zgDRNStwi2BuAtebbL493gTnbBcibYp08Or+FAqjxOixbtyB6pllp5CHrsUTVPhIDVirm7c1bQo05+scMlsUmu/G7+b5vlmtIN7FVDk3gfy9db5jGV8lOkQVZ9pcEEWSbUW6910UrjAaqGQZfDq+l3px9bpoIRHXmUwrrd0M='
