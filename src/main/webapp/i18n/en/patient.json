@@ -11,7 +11,7 @@
       "updated": "A Patient is updated with identifier {{ param }}",
       "deleted": "A Patient is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Patient {{ id }}?"
+        "question": "Are you sure you want to delete Patient {{ firstName }} {{ lastName }}?"
       },
       "detail": {
         "title": "Patient"

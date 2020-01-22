@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <p id="jhi-delete-patient-heading" jhiTranslate="sportTrackerApp.patient.delete.question" [translateValues]="{id: patient.id}">Are you sure you want to delete this Patient?</p>
+        <p id="jhi-delete-patient-heading" jhiTranslate="sportTrackerApp.patient.delete.question" [translateValues]="{firstName: patient.firstName , lastName: patient.lastName}  ">Are you sure you want to delete this Patient?</p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
