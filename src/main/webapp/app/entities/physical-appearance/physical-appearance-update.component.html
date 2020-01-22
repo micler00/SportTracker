@@ -34,7 +34,7 @@
                     <label class="form-control-label" jhiTranslate="sportTrackerApp.physicalAppearance.patient" for="field_patient">Patient</label>
                     <select class="form-control" id="field_patient" name="patient" formControlName="patient">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="patientOption.id === editForm.get('patient')!.value?.id ? editForm.get('patient')!.value : patientOption" *ngFor="let patientOption of patients; trackBy: trackById">{{patientOption.id}}</option>
+                        <option [ngValue]="patientOption.id === editForm.get('patient')!.value?.id ? editForm.get('patient')!.value : patientOption" *ngFor="let patientOption of patients; trackBy: trackById">{{patientOption.firstName}}{{" "}}{{patientOption.lastName}}</option>
                     </select>
                 </div>
             </div>

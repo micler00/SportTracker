@@ -44,14 +44,14 @@
                     <label class="form-control-label" jhiTranslate="sportTrackerApp.workout.patient" for="field_patient">Patient</label>
                     <select class="form-control" id="field_patient" name="patient" formControlName="patient">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="patientOption.id === editForm.get('patient')!.value?.firstName ? editForm.get('patient')!.value : patientOption" *ngFor="let patientOption of patients; trackBy: trackById">{{patientOption.id}}</option>
+                        <option [ngValue]="patientOption.id === editForm.get('patient')!.value?.id ? editForm.get('patient')!.value : patientOption" *ngFor="let patientOption of patients; trackBy: trackById">{{patientOption.firstName}} {{" "}}{{patientOption.lastName}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="sportTrackerApp.workout.activity" for="field_activity">Activity</label>
                     <select class="form-control" id="field_activity" name="activity" formControlName="activity">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="activityOption.id === editForm.get('activity')!.value?.id ? editForm.get('activity')!.value : activityOption" *ngFor="let activityOption of activities; trackBy: trackById">{{activityOption.id}}</option>
+                        <option [ngValue]="activityOption.name === editForm.get('activity')!.value?.name ? editForm.get('activity')!.value : activityOption" *ngFor="let activityOption of activities; trackBy: trackById">{{activityOption.name}}</option>
                     </select>
                 </div>
             </div>

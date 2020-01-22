@@ -33,12 +33,12 @@
                 <td>{{workout.duration}}</td>
                 <td>
                     <div *ngIf="workout.patient">
-                        <a [routerLink]="['/patient', workout.patient?.id, 'view' ]" >{{workout.patient?.id}}</a>
+                        <a [routerLink]="['/patient', workout.patient?.id, 'view' ]" >{{workout.patient?.lastName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="workout.activity">
-                        <a [routerLink]="['/activity', workout.activity?.id, 'view' ]" >{{workout.activity?.id}}</a>
+                        <a [routerLink]="['/activity', workout.activity?.id, 'view' ]" >{{workout.activity?.name}}</a>
                     </div>
                 </td>
                 <td class="text-right">

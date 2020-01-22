@@ -18,7 +18,6 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr>
-            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
             <th scope="col" ><span jhiTranslate="sportTrackerApp.physicalAppearance.weight">Weight</span></th>
             <th scope="col" ><span jhiTranslate="sportTrackerApp.physicalAppearance.height">Height</span></th>
             <th scope="col" ><span jhiTranslate="sportTrackerApp.physicalAppearance.patient">Patient</span></th>
@@ -27,12 +26,11 @@
             </thead>
             <tbody>
             <tr *ngFor="let physicalAppearance of physicalAppearances ;trackBy: trackId">
-                <td><a [routerLink]="['/physical-appearance', physicalAppearance.id, 'view' ]">{{physicalAppearance.id}}</a></td>
                 <td>{{physicalAppearance.weight}}</td>
                 <td>{{physicalAppearance.height}}</td>
                 <td>
                     <div *ngIf="physicalAppearance.patient">
-                        <a [routerLink]="['/patient', physicalAppearance.patient?.id, 'view' ]" >{{physicalAppearance.patient?.id}}</a>
+                        <a [routerLink]="['/patient', physicalAppearance.patient?.id, 'view' ]" >{{physicalAppearance.patient?.firstName}}{{" "}}{{physicalAppearance.patient?.lastName}}</a>
                     </div>
                 </td>
                 <td class="text-right">
